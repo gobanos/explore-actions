@@ -1,0 +1,17 @@
+name: Backend
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir $GITHUB_WORKSPACE/release_backend
+      - run: echo $GITHUB_REF > $GITHUB_WORKSPACE/release_backend/github_ref.txt
+      - run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/release_backend/github_sha.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            release_backend/github_ref.txt
+            release_backend/github_sha.txt

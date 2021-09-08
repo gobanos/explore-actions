@@ -1,0 +1,17 @@
+name: Frontend
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir $GITHUB_WORKSPACE/release_backend
+      - run: echo $GITHUB_REF > $GITHUB_WORKSPACE/release_frontend/github_ref.txt
+      - run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/release_frontend/github_sha.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: assets
+          path: |
+            release_frontend/github_ref.txt
+            release_frontend/github_sha.txt
