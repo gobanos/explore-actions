@@ -6,7 +6,7 @@ on:
       - "Frontend"
     types:
       - completed
-    branches: [next]
+    branches: [ next ]
   workflow_dispatch:
 jobs:
   dump:
