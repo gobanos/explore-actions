@@ -30,4 +30,4 @@ jobs:
           path: $GITHUB_WORKSPACE/release_frontend
 
       - run: tree
-      - run: diff $GITHUB_WORKSPACE/release_backend/github_sha.txt $GITHUB_WORKSPACE/release_frontend/github_sha.txt
+      - run: diff release_backend/github_sha.txt release_frontend/github_sha.txt
