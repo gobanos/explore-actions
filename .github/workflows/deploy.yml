@@ -19,7 +19,7 @@ jobs:
           workflow_conclusion: success
           branch: next
           name: build
-          path: $GITHUB_WORKSPACE/release_backend
+          path: ${{ github.workspace }}/release_backend
 
       - uses: dawidd6/action-download-artifact@v2
         with:
@@ -27,7 +27,7 @@ jobs:
           workflow_conclusion: success
           branch: next
           name: assets
-          path: $GITHUB_WORKSPACE/release_frontend
+          path: ${{ github.workspace }}/release_frontend
 
-      - run: tree
-      - run: diff release_backend/github_sha.txt release_frontend/github_sha.txt
+      - run: tree $GITHUB_WORKSPACE
+      - run: diff $GITHUB_WORKSPACE/release_backend/github_sha.txt $GITHUB_WORKSPACE/release_frontend/github_sha.txt
