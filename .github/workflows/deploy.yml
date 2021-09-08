@@ -9,9 +9,8 @@ on:
     branches: [next]
   workflow_dispatch:
 jobs:
-  deploy:
+  dump:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Dump GitHub context
         env:
@@ -37,12 +36,18 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' }}
+    steps:
       - uses: dawidd6/action-download-artifact@v2
         with:
           workflow: backend.yml
           workflow_conclusion: success
           branch: next
           name: build
+          commit: ${{ github.event.workflow_run.head_sha }}
           path: ${{ github.workspace }}/release_backend
 
       - uses: dawidd6/action-download-artifact@v2
@@ -51,6 +56,7 @@ jobs:
           workflow_conclusion: success
           branch: next
           name: assets
+          commit: ${{ github.event.workflow_run.head_sha }}
           path: ${{ github.workspace }}/release_frontend
 
       - run: tree $GITHUB_WORKSPACE
