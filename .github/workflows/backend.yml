@@ -9,6 +9,7 @@ jobs:
       - run: mkdir $GITHUB_WORKSPACE/release_backend
       - run: echo $GITHUB_REF > $GITHUB_WORKSPACE/release_backend/github_ref.txt
       - run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/release_backend/github_sha.txt
+      - run: sleep 30
       - uses: actions/upload-artifact@v2
         with:
           name: build
