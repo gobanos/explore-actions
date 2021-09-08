@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir $GITHUB_WORKSPACE/release_backend
+      - run: mkdir $GITHUB_WORKSPACE/release_frontend
       - run: echo $GITHUB_REF > $GITHUB_WORKSPACE/release_frontend/github_ref.txt
       - run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/release_frontend/github_sha.txt
       - uses: actions/upload-artifact@v2
