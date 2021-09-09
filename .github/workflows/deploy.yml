@@ -47,7 +47,7 @@ jobs:
           workflow_conclusion: success
           branch: next
           name: build
-          commit: ${{ github.event.workflow_run.head_sha }}
+          commit: ${{ github.sha }}
           path: ${{ github.workspace }}/release_backend
 
       - uses: dawidd6/action-download-artifact@v2
@@ -56,7 +56,7 @@ jobs:
           workflow_conclusion: success
           branch: next
           name: assets
-          commit: ${{ github.event.workflow_run.head_sha }}
+          commit: ${{ github.sha }}
           path: ${{ github.workspace }}/release_frontend
 
       - run: tree $GITHUB_WORKSPACE
