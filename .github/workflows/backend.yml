@@ -35,7 +35,7 @@ jobs:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
-      - run: sleep 10
+      - run: sleep 30
       - uses: actions/upload-artifact@v2
         with:
           name: build
