@@ -69,7 +69,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch' }}
     steps:
-      - uses: impero-com/action-download-artifact@v2
+      - id: download-backend
+        continue-on-error: true
+        uses: impero-com/action-download-artifact@v2
         with:
           workflow: backend.yml
           workflow_conclusion: success
@@ -78,7 +80,9 @@ jobs:
           commit: ${{ github.sha }}
           path: ${{ github.workspace }}/release_backend
 
-      - uses: impero-com/action-download-artifact@v2
+      - id: download-frontend
+        continue-on-error: true
+        uses: impero-com/action-download-artifact@v2
         with:
           workflow: frontend.yml
           workflow_conclusion: success
@@ -87,5 +91,11 @@ jobs:
           commit: ${{ github.sha }}
           path: ${{ github.workspace }}/release_frontend
 
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+
       - run: tree $GITHUB_WORKSPACE
       - run: diff $GITHUB_WORKSPACE/release_backend/github_sha.txt $GITHUB_WORKSPACE/release_frontend/github_sha.txt
+        if: ${{ github.steps.download-backend.outcome == "success" && github.steps.download-frontend.outcome == "success" }}
