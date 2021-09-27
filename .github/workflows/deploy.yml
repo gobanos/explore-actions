@@ -98,4 +98,4 @@ jobs:
 
       - run: tree $GITHUB_WORKSPACE
       - run: diff $GITHUB_WORKSPACE/release_backend/github_sha.txt $GITHUB_WORKSPACE/release_frontend/github_sha.txt
-        if: ${{ github.steps.download-backend.outcome == "success" && github.steps.download-frontend.outcome == "success" }}
+        if: ${{ github.steps.download-backend.outcome == 'success' && github.steps.download-frontend.outcome == 'success' }}
